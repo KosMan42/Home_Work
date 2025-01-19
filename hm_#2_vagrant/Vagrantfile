@@ -1,0 +1,48 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "generic/ubuntu2204"
+  
+  MACHINES = {
+    :"kernel-update" => {
+      :box_name => "generic/ubuntu2204",
+      :cpus => 2,
+      :memory => 2048,
+    }
+  }
+
+  MACHINES.each do |boxname, boxconfig|
+    config.vm.define boxname do |box|
+      box.vm.box = boxconfig[:box_name]
+      box.vm.provider "virtualbox" do |v|
+        v.memory = boxconfig[:memory]
+        v.cpus = boxconfig[:cpus]
+      end
+
+      # Задание имени хоста
+      box.vm.host_name = boxname.to_s
+
+      # Добавление сети DHCP
+      box.vm.network "public_network", type: "dhcp"
+
+      # Добавление скрипта для обновления ядра
+      box.vm.provision "shell", inline: <<-SHELL
+        uname -r
+        # Обновляем пакетный менеджер
+        sudo apt update -y
+        
+        # Устанавливаем утилиту mainline для управления ядрами
+        sudo add-apt-repository -y ppa:cappelikan/ppa
+        sudo apt update -y
+        sudo apt install -y mainline
+
+        # Устанавливаем последнее доступное ядро
+        mainline --install-latest
+
+        sudo reboot
+
+      SHELL
+    end
+  end
+end
