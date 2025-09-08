@@ -1,0 +1,105 @@
+root@u22-test-01:~# mdadm -D /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Mon Sep  8 15:50:00 2025
+        Raid Level : raid10
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 1046528 (1022.00 MiB 1071.64 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Mon Sep  8 15:50:10 2025
+             State : clean
+    Active Devices : 4
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : u22-test-01:0  (local to host u22-test-01)
+              UUID : 4a0442c5:362bd123:4066abcd:228a5771
+            Events : 17
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+root@u22-test-01:~# sudo mdadm /dev/md0 --fail /dev/sdb
+mdadm: set /dev/sdb faulty in /dev/md0
+root@u22-test-01:~# mdadm /dev/md0 --remove /dev/sdb
+mdadm: hot removed /dev/sdb from /dev/md0
+root@u22-test-01:~# mdadm -D /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Mon Sep  8 15:50:00 2025
+        Raid Level : raid10
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 1046528 (1022.00 MiB 1071.64 MB)
+      Raid Devices : 4
+     Total Devices : 3
+       Persistence : Superblock is persistent
+
+       Update Time : Mon Sep  8 16:44:04 2025
+             State : clean, degraded
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : u22-test-01:0  (local to host u22-test-01)
+              UUID : 4a0442c5:362bd123:4066abcd:228a5771
+            Events : 20
+
+    Number   Major   Minor   RaidDevice State
+       -       0        0        0      removed
+       1       8       32        1      active sync set-B   /dev/sdc
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+root@u22-test-01:~# mdadm /dev/md0 --add /dev/sdb
+mdadm: added /dev/sdb
+root@u22-test-01:~# mdadm -D /dev/md0
+/dev/md0:
+           Version : 1.2
+     Creation Time : Mon Sep  8 15:50:00 2025
+        Raid Level : raid10
+        Array Size : 2093056 (2044.00 MiB 2143.29 MB)
+     Used Dev Size : 1046528 (1022.00 MiB 1071.64 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Mon Sep  8 16:44:28 2025
+             State : clean, degraded, recovering
+    Active Devices : 3
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 1
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+    Rebuild Status : 78% complete
+
+              Name : u22-test-01:0  (local to host u22-test-01)
+              UUID : 4a0442c5:362bd123:4066abcd:228a5771
+            Events : 35
+
+    Number   Major   Minor   RaidDevice State
+       4       8       16        0      spare rebuilding   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+root@u22-test-01:~#

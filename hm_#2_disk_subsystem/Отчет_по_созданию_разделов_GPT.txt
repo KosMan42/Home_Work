@@ -1,0 +1,54 @@
+root@u22-test-01:~# parted /dev/md0 mklabel gpt
+Information: You may need to update /etc/fstab.
+root@u22-test-01:~# sudo parted -a optimal /dev/md0 mkpart primary ext4 0% 20%
+sudo parted -a optimal /dev/md0 mkpart primary ext4 20% 40%
+sudo parted -a optimal /dev/md0 mkpart primary ext4 40% 60%
+sudo parted -a optimal /dev/md0 mkpart primary ext4 60% 80%
+sudo parted -a optimal /dev/md0 mkpart primary ext4 80% 100%
+Information: You may need to update /etc/fstab.
+
+Information: You may need to update /etc/fstab.
+
+Information: You may need to update /etc/fstab.
+
+Information: You may need to update /etc/fstab.
+
+Information: You may need to update /etc/fstab.
+
+root@u22-test-01:~# lsblk
+NAME      MAJ:MIN RM  SIZE RO TYPE   MOUNTPOINTS
+sda         8:0    0   32G  0 disk
+├─sda1      8:1    0   31G  0 part   /
+├─sda14     8:14   0    4M  0 part
+├─sda15     8:15   0  106M  0 part   /boot/efi
+└─sda16   259:0    0  913M  0 part   /boot
+sdb         8:16   0    1G  0 disk
+└─md0       9:0    0    2G  0 raid10
+  ├─md0p1 259:4    0  408M  0 part
+  ├─md0p2 259:5    0  409M  0 part
+  ├─md0p3 259:6    0  408M  0 part
+  ├─md0p4 259:9    0  409M  0 part
+  └─md0p5 259:10   0  408M  0 part
+sdc         8:32   0    1G  0 disk
+└─md0       9:0    0    2G  0 raid10
+  ├─md0p1 259:4    0  408M  0 part
+  ├─md0p2 259:5    0  409M  0 part
+  ├─md0p3 259:6    0  408M  0 part
+  ├─md0p4 259:9    0  409M  0 part
+  └─md0p5 259:10   0  408M  0 part
+sdd         8:48   0    1G  0 disk
+└─md0       9:0    0    2G  0 raid10
+  ├─md0p1 259:4    0  408M  0 part
+  ├─md0p2 259:5    0  409M  0 part
+  ├─md0p3 259:6    0  408M  0 part
+  ├─md0p4 259:9    0  409M  0 part
+  └─md0p5 259:10   0  408M  0 part
+sde         8:64   0    1G  0 disk
+└─md0       9:0    0    2G  0 raid10
+  ├─md0p1 259:4    0  408M  0 part
+  ├─md0p2 259:5    0  409M  0 part
+  ├─md0p3 259:6    0  408M  0 part
+  ├─md0p4 259:9    0  409M  0 part
+  └─md0p5 259:10   0  408M  0 part
+sdf         8:80   0    1G  0 disk
+sr0        11:0    1    4M  0 rom
