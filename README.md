@@ -19,7 +19,7 @@
 Чтобы склонировать этот репозиторий на локальный компьютер, используй следующую команду:
 
 ```bash
-git clone [https://github.com/KosMan42/homeworks.git](https://github.com/KosMan42/Home_Work.git)
+git clone https://github.com/KosMan42/Home_Work.git
 ```
 
 ## Структура репозитория
