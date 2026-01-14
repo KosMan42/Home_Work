@@ -9,7 +9,7 @@ docker build -t my-nginx:1.0 .
 ## Запуск контейнера
 docker run -d -p 8080:80 my-nginx:1.0
 
-##Образ доступен в Docker Hub:
+## Образ доступен в Docker Hub:
 - https://hub.docker.com/r/kpfama/my-nginx
 
 Ответ на вопрос:
