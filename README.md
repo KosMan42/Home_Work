@@ -5,6 +5,7 @@
 ## Содержание
 
 - [Урок 2](hm_2_disk_subsystem/README.md): Дисковая подсистема.
+- [Урок 9](hm_9_systemd/README.md): Инициализация системы (systemd).
 - [Урок 18](hm_18_vagrant/README.md): Работа с Vagrant. Обновления ядра в ВМ vagranta.
 - [Урок 19](hm_19_docker_basic/README.md): Работа с Docker. изучить основные понятия контейнеризации.
 
